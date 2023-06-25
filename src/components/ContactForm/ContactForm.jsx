@@ -1,8 +1,14 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { nanoid } from 'nanoid';
-import PropTypes from 'prop-types';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import notifyOptions from '../../notify/NotifyOptions';
+
+import { addContact, getContacts } from '../../redux/contacts/contactsSlice';
 
 import {
   Form,
@@ -36,15 +42,35 @@ const schema = yup.object().shape({
     .required(),
 });
 
-export const ContactForm = ({ onAddContact }) => {
+const initialValues = { name: '', number: '' };
+
+const ContactForm = () => {
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+
+  const isDublicate = ({ name, number }) => {
+    const normalizedName = name.toLowerCase().trim();
+    const normalizedNumber = number.trim();
+
+    const dublicate = contacts.find(
+      contact =>
+        contact.name.toLowerCase().trim() === normalizedName ||
+        contact.number.trim() === normalizedNumber
+    );
+    return Boolean(dublicate);
+  };
+
+  const onAddContact = ({ name, number }) => {
+    if (isDublicate({ name, number })) {
+      return toast.error(`This contact is already in contacts`, notifyOptions);
+    }
+    dispatch(addContact({ name, number }));
+  };
   return (
     <Formik
-      initialValues={{
-        name: '',
-        number: '',
-      }}
+      initialValues={initialValues}
       onSubmit={(values, { resetForm }) => {
-        onAddContact({ id: nanoid(), ...values });
+        onAddContact({ ...values });
         resetForm();
       }}
       validationSchema={schema}
@@ -74,6 +100,4 @@ export const ContactForm = ({ onAddContact }) => {
   );
 };
 
-ContactForm.propType = {
-  onSubmit: PropTypes.func.isRequired,
-};
+export default ContactForm;

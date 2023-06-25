@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, MainBlock } from './Container.styled';
 import PropTypes from 'prop-types';
 
-export const Layout = ({ children }) => {
+const Layout = ({ children }) => {
   return (
     <Container>
       <MainBlock>{children}</MainBlock>
@@ -13,3 +13,5 @@ export const Layout = ({ children }) => {
 Layout.propTypes = {
   children: PropTypes.any.isRequired,
 };
+
+export default Layout;

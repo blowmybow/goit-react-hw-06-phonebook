@@ -1,4 +1,4 @@
-export const notifyOptions = {
+const notifyOptions = {
   position: 'bottom-left',
   autoClose: 5000,
   hideProgressBar: false,
@@ -8,3 +8,4 @@ export const notifyOptions = {
   progress: undefined,
   theme: 'colored',
 };
+export default notifyOptions;
