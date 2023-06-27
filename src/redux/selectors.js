@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import notifyOptions from '../notify/NotifyOptions';
 
-export const getContacts = store => store.contacts.items;
+export const getContacts = store => store.contacts;
 
 export const getFilter = store => store.filter;
 

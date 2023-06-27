@@ -10,8 +10,8 @@ const ContactList = () => {
   const contacts = useSelector(getFilteredContacts);
   const dispatch = useDispatch();
 
-  const onDeleteContact = () => {
-    dispatch(deleteContact());
+  const onDeleteContact = contactId => {
+    dispatch(deleteContact(contactId));
   };
   return (
     <List>

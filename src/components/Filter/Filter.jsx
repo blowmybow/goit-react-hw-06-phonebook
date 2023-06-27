@@ -13,7 +13,8 @@ const Filter = () => {
   const dispatch = useDispatch();
 
   const changeFilter = e => {
-    dispatch(setFilter(e.target.value.toLowerCase().trim()));
+    const normalizeFilterValue = e.currentTarget.value.toLowerCase().trim();
+    dispatch(setFilter(normalizeFilterValue));
   };
   return (
     <Label>
