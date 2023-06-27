@@ -3,22 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { List, Item, Span, Button } from './ContactList.styled';
 
-import {
-  deleteContact,
-  getFilteredContacts,
-} from '../../redux/contacts/contactsSlice';
+import { deleteContact } from '../../redux/contactsSlice';
+import { getFilteredContacts } from '../../redux/selectors';
 
 const ContactList = () => {
-  const filteredContacts = useSelector(getFilteredContacts);
-
+  const contacts = useSelector(getFilteredContacts);
   const dispatch = useDispatch();
 
-  const onDeleteContact = contactId => {
-    dispatch(deleteContact(contactId));
+  const onDeleteContact = () => {
+    dispatch(deleteContact());
   };
   return (
     <List>
-      {filteredContacts.map(({ name, number, id }) => {
+      {contacts.map(({ name, number, id }) => {
         return (
           <Item key={id}>
             <Span>{name} :</Span>

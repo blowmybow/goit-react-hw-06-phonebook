@@ -1,13 +1,16 @@
 import React from 'react';
-
+import { nanoid } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilter, getFilter } from '../../redux/filter/filterSlice';
+import { setFilter } from '../../redux/filterSlice';
+import { getFilter } from '../../redux/selectors';
 
 import { LabelWrapper, Label, Input } from './Filter.styled';
 
+const filterId = nanoid();
+
 const Filter = () => {
   const filter = useSelector(getFilter);
-  const dispatch = useDispatch(setFilter);
+  const dispatch = useDispatch();
 
   const changeFilter = e => {
     dispatch(setFilter(e.target.value.toLowerCase().trim()));
@@ -19,6 +22,7 @@ const Filter = () => {
         type="text"
         value={filter}
         onChange={changeFilter}
+        id={filterId}
         placeholder="search contacts"
       />
     </Label>

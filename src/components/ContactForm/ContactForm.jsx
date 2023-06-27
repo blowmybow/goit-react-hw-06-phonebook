@@ -8,7 +8,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import notifyOptions from '../../notify/NotifyOptions';
 
-import { addContact, getContacts } from '../../redux/contacts/contactsSlice';
+import { addContact } from '../../redux/contactsSlice';
+import { getFilteredContacts } from '../../redux/selectors';
 
 import {
   Form,
@@ -45,7 +46,7 @@ const schema = yup.object().shape({
 const initialValues = { name: '', number: '' };
 
 const ContactForm = () => {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(getFilteredContacts);
   const dispatch = useDispatch();
 
   const isDublicate = ({ name, number }) => {
